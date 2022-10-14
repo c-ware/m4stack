@@ -1,0 +1,21 @@
+/*
+ * Testing of the free operation.
+*/
+
+#include "common.h"
+
+include(template/common.m4)
+
+void test_free() {
+    struct StringStack *stack = (struct StringStack *) CWUTILS_NULL;
+
+    stack = M4STACK_INIT(stack, STRING_STACK);
+
+    M4STACK_FREE(stack, STRING_STACK);
+}
+
+int main() {
+    test_free();
+
+    return 0;
+}

@@ -1,0 +1,55 @@
+/*
+ * Test the length operation
+*/
+
+#include "common.h"
+
+include(template/common.m4)
+
+void test_length() {
+    char *a = (char *) malloc(16);
+    char *b = (char *) malloc(16);
+    char *c = (char *) malloc(16);
+    char *d = (char *) malloc(16);
+    char *e = (char *) malloc(16);
+    char *f = (char *) malloc(16);
+    char *g = (char *) malloc(16);
+    char *output = CWUTILS_NULL;
+    struct StringStack *my_stack = M4STACK_INIT(my_stack, STRING_STACK);
+
+    strcpy(a, "foo");
+    strcpy(b, "bar");
+    strcpy(c, "baz");
+    strcpy(d, "tuna");
+    strcpy(e, "spam");
+    strcpy(f, "thud");
+    strcpy(g, "eggs");
+
+    ASSERT_NUMEQ(M4STACK_LENGTH(my_stack), 0);
+
+    M4STACK_PUSH(my_stack, a, STRING_STACK);
+    ASSERT_NUMEQ(M4STACK_LENGTH(my_stack), 1);
+
+    M4STACK_PUSH(my_stack, b, STRING_STACK);
+    ASSERT_NUMEQ(M4STACK_LENGTH(my_stack), 2);
+
+    M4STACK_PUSH(my_stack, c, STRING_STACK);
+    ASSERT_NUMEQ(M4STACK_LENGTH(my_stack), 3);
+
+    M4STACK_POP(my_stack, output, STRING_STACK);
+    ASSERT_NUMEQ(M4STACK_LENGTH(my_stack), 2);
+
+    M4STACK_POP(my_stack, output, STRING_STACK);
+    ASSERT_NUMEQ(M4STACK_LENGTH(my_stack), 1);
+
+    M4STACK_POP(my_stack, output, STRING_STACK);
+    ASSERT_NUMEQ(M4STACK_LENGTH(my_stack), 0);
+
+    M4STACK_FREE(my_stack, STRING_STACK);
+}
+
+int main() {
+    test_length();
+
+    return 0;
+}

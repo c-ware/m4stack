@@ -1,0 +1,112 @@
+@docgen_start
+@type: project
+@name: m4stack-intro
+@brief: a guide to how m4stack works, and how to use it
+
+@synopsis
+@A table of contents.
+@\BDESCRIPTION\B
+@\R 0.4
+@An introduction to how m4stack works.
+@\R
+@\BUSING M4STACK\B
+@\R 0.4
+@Basic guide to using m4stack in your project.
+@\R
+@\BPROPERTIES\B
+@\R 0.4
+@An introduction to data structure properties, how to use them, what ones are
+@available, etc.
+@\R
+@\BCOMPILATION NOTES\B
+@\R 0.4
+@Notes about compiling on stranger operating systems like ULTRIX and QuasiBSD.
+@\R
+@synopsis
+
+@description
+@This manual serves the purpose of giving the reader a basic introduction into
+@how m4stack works, and acts as a place to explain certain concepts that m4stack
+@uses.
+@
+@\M USING M4STACK
+@One of the more inconvenient parts of using m4stack is its integration with
+@\Bliberror\B(cware). You do not \Bneed\B to use liberror in m4stack, as if
+@\BLIBERROR_ENABLED\B is not defined, it will not attempt to expand the safety
+@check macros, like out of bounds checks.
+@
+@This being said, it is still recommended that you use them. So, if you do decide
+@to use them, all you need to do is make sure that each file that uses m4stack
+@has access to the liberror macros. I would suggest using a "central header" for
+@your project, which includes all the other headers.
+@
+@Other than that, since m4stack is written in m4, you will need to have the m4
+@preprocessor on your box. While you most likely do, it might be less work on
+@the end of the user for you to \Bpreprocess\B your C code  with m4 before
+@shipping it. Otherwise, you can preprocess it while building.
+@
+@\M PROPERTIES
+@Explanations aside, the one truly defining feature of the \Bm4\B(1) data structure
+@implementations is how they store information. The C-Ware data structures, along with
+@m4stack, use a namespacing system with other macros to hold information about a given
+@data structure. Most of the m4stack operations will take a \Inamespace\I argument,
+@which is used to access information about that data structure. As an example, say you
+@had an stack of heap-allocated strings, which should all be released from memory when
+@the stack is released. If we wanted to \Binitialize\B, and \Bfree\B the stack, we would
+@need to define a collections of macros which end in the suffixes \B_TYPE\B, \B_NAME\B,
+@and \B_FREE\B respectively.
+@
+@define(`STRING_STACK_TYPE', `char *')\N
+@define(`STRING_STACK_NAME', `struct StringStack')\N
+@define(`STRING_STACK_FREE', `free($1)')\N
+@
+@In this case, \ISTRING_STACK\I is our namespace. Any macro which might need access to this
+@information can just be passed the namespace as an argument, and be on its way. This is how
+@all the operations in m4stack access external information, if they need it. That being said,
+@these macros are for each \Btype\B of data structure. If you wanted to instantiate multiple
+@stacks of strings, you can use the same namespace. You only need to use other namespaces if
+@you are working with other types, and can easily just switch out the namespace for other types
+@if needed.
+@
+@The information stored in macros are usually referred to as data structure properties, or
+@just properties. Here is a list of each property, and a description of it. Do note, you
+@do not need to define \Ievery\I macro-- only the ones you need to use. If you use an
+@operation, check the notes section of its manual page for what macros it uses.
+@
+@\B_TYPE\B\N
+@\R 0.4
+@This property stores the type of data stored in the stack. For example, if you wanted
+@to store an stack of pointers to integers, \Bint *\B would be stored. Or, if you wanted
+@an stack of structures named \BMyStruct\B, you could have the type of \Bstruct MyStruct\B.
+@\R
+@
+@\B_NAME\B\N
+@\R 0.4
+@This property stores the type of the stack. For example, if you had an stack structure
+@declared as \BMyArray\B, you would set this property to \Bstruct MyArray\B, or if it was
+@declared with a typedef, just \BMyArray\B.
+@\R
+@
+@\B_FREE\B
+@\R 0.4
+@This property is a 'callback' macro that describes how an element of the stack should be
+@released from memory. The first argument is the value to release from memory. For example,
+@if you had an stack of heap-allocated strings, and you wanted to to release them from memory,
+@you could define the stack as \Bfree($1)\B, which will invoke the \Bfree\B(3) function over
+@an element of the stack.
+@\R
+@
+@\M COMPILATION NOTES
+@Some of the operating systems that m4stack will compile under need a specific macro
+@defined for the code to be compiled correctly on that operating system. If you are
+@targeting any of the following operating systems, please define the corresponding
+@macro to make sure m4stack knows what operating system it is on.
+@\T
+@\S ;
+@\H Operating System;Macro
+@\E ULTRIX;__ULTRIX__
+@\E QuasiBSD;__QuasiBSD__
+@\T
+@description
+
+@docgen_end

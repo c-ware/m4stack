@@ -1,0 +1,20 @@
+.TH "M4STACK_PUSH" "cware" "Oct 14, 2022" "" "C-Ware Manuals"
+.SH NAME
+M4STACK_PUSH - add a new item to the stack
+.SH SYNOPSIS
+include(m4stack/m4stack.m4)
+.br
+
+\fBdefine(M4STACK_PUSH);\fR
+.br
+.SH DESCRIPTION
+Add a new item to the top of the stack, possibly resizing the stack if
+it needs to be resized.
+
+
+\fI$1\fR will be pointer to the stack to push into
+.br
+\fI$2\fR will be value to push
+.br
+\fI$3\fR will be namespace of the stack
+.br

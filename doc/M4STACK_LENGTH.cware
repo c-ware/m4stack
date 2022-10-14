@@ -1,0 +1,24 @@
+.TH "M4STACK_LENGTH" "cware" "Oct 14, 2022" "" "C-Ware Manuals"
+.SH NAME
+M4STACK_LENGTH - determine the length of the stack
+.SH SYNOPSIS
+include(m4stack/m4stack.m4)
+.br
+
+\fBdefine(M4STACK_LENGTH);\fR
+.br
+.SH DESCRIPTION
+This macro will evaluate the length of the stack.
+
+
+\fI$1\fR will be pointer to the stack to release
+.br
+\fI$2\fR will be the variable to put the value into
+.br
+.SH NOTES
+This operation does NOT perform safety checks, even if they are enabled.
+Make sure you perform them yourself.
+.SH EXAMPLES
+For examples, please see the examples section in \fBm4stack\fR(cware)
+.SH SEE ALSO
+m4stack(cware)

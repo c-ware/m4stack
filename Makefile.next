@@ -1,0 +1,92 @@
+# A collection of m4 macros to make writing Makefiles easier.
+# Recommended for a two-pass m4 system.
+
+
+
+
+
+
+
+
+
+
+
+# Define the implicit rules
+
+
+
+
+
+
+# A collection of m4 macros to make writing Makefiles easier.
+# Recommended for a two-pass m4 system.
+
+
+
+
+
+
+
+
+
+
+
+# Define the implicit rules
+
+
+
+
+
+
+# Makefile for 4.3 BSD
+
+M4=m4
+
+CC=cc
+CPP=/lib/cpp
+CFLAGS=
+CPPFLAGS=-I/usr/include
+TESTS=tests/length tests/free tests/addremov tests/pop tests/is_empty tests/peek tests/init tests/push 
+DOCS=doc/m4stack.cware doc/M4STACK_PUSH.cware doc/M4STACK_INIT.cware doc/m4stack-intro.cware doc/M4STACK_LENGTH.cware doc/M4STACK_POP.cware doc/M4STACK_IS_EMPTY.cware doc/M4STACK_PEEK.cware doc/M4STACK_DECLARE.cware doc/M4STACK_FREE.cware 
+
+all: $(TESTS)
+
+install: maninstall
+
+maninstall:
+	mkdir -p $(PREFIX)/share/man/mancware
+	cp $(DOCS) $(PREFIX)/share/man/mancware
+
+clean:
+	rm -f $(TESTS)
+	rm -f $(EXAMPLES)
+
+.SUFFIXES:
+
+tests/addremov: tests/addremov.c 
+	$(CPP) $(CPPFLAGS) tests/addremov.c > tests/addremov.c.i
+	$(CC) tests/addremov.c.i $(CFLAGS) -o tests/addremov
+tests/push: tests/push.c 
+	$(CPP) $(CPPFLAGS) tests/push.c > tests/push.c.i
+	$(CC) tests/push.c.i $(CFLAGS) -o tests/push
+tests/init: tests/init.c 
+	$(CPP) $(CPPFLAGS) tests/init.c > tests/init.c.i
+	$(CC) tests/init.c.i $(CFLAGS) -o tests/init
+tests/peek: tests/peek.c 
+	$(CPP) $(CPPFLAGS) tests/peek.c > tests/peek.c.i
+	$(CC) tests/peek.c.i $(CFLAGS) -o tests/peek
+tests/is_empty: tests/is_empty.c 
+	$(CPP) $(CPPFLAGS) tests/is_empty.c > tests/is_empty.c.i
+	$(CC) tests/is_empty.c.i $(CFLAGS) -o tests/is_empty
+tests/free: tests/free.c 
+	$(CPP) $(CPPFLAGS) tests/free.c > tests/free.c.i
+	$(CC) tests/free.c.i $(CFLAGS) -o tests/free
+tests/pop: tests/pop.c 
+	$(CPP) $(CPPFLAGS) tests/pop.c > tests/pop.c.i
+	$(CC) tests/pop.c.i $(CFLAGS) -o tests/pop
+tests/length: tests/length.c 
+	$(CPP) $(CPPFLAGS) tests/length.c > tests/length.c.i
+	$(CC) tests/length.c.i $(CFLAGS) -o tests/length
+
+
+.PHONY: all clean install maninstall

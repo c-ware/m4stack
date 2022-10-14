@@ -1,0 +1,22 @@
+.TH "M4STACK_INIT" "cware" "Oct 14, 2022" "" "C-Ware Manuals"
+.SH NAME
+M4STACK_INIT - initialize a new stack
+.SH SYNOPSIS
+include(m4stack/m4stack.m4)
+.br
+
+\fBdefine(M4STACK_INIT);\fR
+.br
+.SH DESCRIPTION
+This will initialize a new stack on the heap. The initial length will be judged
+by M4STACK_INITIAL_LENGTH, and must be released from memory using \fBM4STACK_FREE\fR(cware)
+
+
+\fI$1\fR will be pointer to the stack to initialize
+.br
+\fI$2\fR will be namespace of the stack
+.br
+.SH EXAMPLES
+For examples, please see the examples section in \fBm4stack\fR(cware)
+.SH SEE ALSO
+m4stack(cware)

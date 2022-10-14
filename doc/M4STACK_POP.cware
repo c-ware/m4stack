@@ -1,0 +1,20 @@
+.TH "M4STACK_POP" "cware" "Oct 14, 2022" "" "C-Ware Manuals"
+.SH NAME
+M4STACK_POP - add a new item to the stack
+.SH SYNOPSIS
+include(m4stack/m4stack.m4)
+.br
+
+\fBdefine(M4STACK_POP);\fR
+.br
+.SH DESCRIPTION
+Pop a value from the top of the stack, and write it into
+a variable.
+
+
+\fI$1\fR will be the stack to pop from
+.br
+\fI$2\fR will be the variable to put the value in
+.br
+\fI$3\fR will be the namespace of the stack
+.br

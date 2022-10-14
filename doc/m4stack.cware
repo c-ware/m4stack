@@ -1,0 +1,61 @@
+.TH "m4stack" "cware" "Oct 14, 2022" "" "C-Ware Manuals"
+.SH NAME
+m4stack - an implementation of a stack in m4
+.SH SYNOPSIS
+include(m4stack/m4stack.m4)
+.br
+
+.SH DESCRIPTION
+An implementation of a stack in m4. It provides all basic operations one
+might expect from a stack, like pushing, popping, and peeking. It is type
+safe, and highly portable. It has shown to compile on the following 
+operating systems, including those with K&R compilers!
+   - FreeBSD 13.1
+   - NetBSD 9.3
+   - OpenBSD 7.1
+   - OpenSolaris 10
+   - ULTRIX 4.5
+   - QuasijarusBSD 4.3
+   - OS/2 4.52 Warp
+   - DragonflyBSD 6.2.1
+   - NeXTSTEP 4.2
+   - UNIXWare 7.1.4
+
+Since this is an \fBm4\fR(cware) implementation, it is recommended that
+you \fIpreprocess\fR your code with m4 \fBbefore\fR shipping it, which will
+also allow your code to be more portable, since not all operating systems
+have an m4 implementation. For a larger introduction into how m4stack works,
+and how to use it, please see \fBm4stack-intro\fR.
+
+\fBList of operations\fR
+.TS
+tab(;);
+l l l
+_ _ _
+l l l
+.
+Manual;Description
+M4STACK_INIT(cware);initialize a new stack
+M4STACK_PUSH(cware);add to the stack
+M4STACK_POP(cware);remove the front element of the stack
+M4STACK_IS_EMPTY(cware);determine if the stack is empty
+M4STACK_LENGTH(cware);evaluate to the length of the stack
+M4STACK_PEEK(cware);get the front element without removing it
+M4STACK_DECLARE(cware);declare a new stack structure
+M4STACK_FREE(cware);release the stack from memory
+.TE
+.SH EXAMPLES
+m4stack has a couple of examples dedicated to it, showing off some of\N
+the more basic operations it provides.\N
+
+.TS
+tab(;);
+l l l
+_ _ _
+l l l
+.
+Manual;Description
+m4stack-example-tree(cware);an example of a tree command
+.TE
+.SH SEE ALSO
+cware(cware), m4stack-intro(cware)

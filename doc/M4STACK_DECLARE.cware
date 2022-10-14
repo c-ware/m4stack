@@ -1,0 +1,21 @@
+.TH "M4STACK_DECLARE" "cware" "Oct 14, 2022" "" "C-Ware Manuals"
+.SH NAME
+M4STACK_DECLARE - declare a new stack structure
+.SH SYNOPSIS
+include(m4stack/m4stack.m4)
+.br
+
+\fBdefine(M4STACK_DECLARE);\fR
+.br
+.SH DESCRIPTION
+This will declare a new stack structure of a certain name.
+
+
+\fI$1\fR will be the name of the structure
+.br
+\fI$2\fR will be the type of the stack
+.br
+.SH EXAMPLES
+For examples, please see the examples section in \fBm4stack\fR(cware)
+.SH SEE ALSO
+m4stack(cware)

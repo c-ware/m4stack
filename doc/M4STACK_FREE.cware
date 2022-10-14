@@ -1,0 +1,23 @@
+.TH "M4STACK_FREE" "cware" "Oct 14, 2022" "" "C-Ware Manuals"
+.SH NAME
+M4STACK_FREE - release a stack and its contents from memory
+.SH SYNOPSIS
+include(m4stack/m4stack.m4)
+.br
+
+\fBdefine(M4STACK_FREE);\fR
+.br
+.SH DESCRIPTION
+This macro will apply a free-macro for each element of the stack, and 
+release the stack itself. The macro that will be called has the suffix
+_FREE.
+
+
+\fI$1\fR will be pointer to the stack to release
+.br
+\fI$2\fR will be the namespace of the stack
+.br
+.SH EXAMPLES
+For examples, please see the examples section in \fBm4stack\fR(cware)
+.SH SEE ALSO
+m4stack(cware)

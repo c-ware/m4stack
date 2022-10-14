@@ -1,0 +1,54 @@
+/*
+ * Test of the push operation
+*/
+
+#include "common.h"
+
+include(template/common.m4)
+
+void test_push() {
+    char *a = (char *) malloc(16);
+    char *b = (char *) malloc(16);
+    char *c = (char *) malloc(16);
+    char *d = (char *) malloc(16);
+    struct StringStack *my_stack = M4STACK_INIT(my_stack, STRING_STACK);
+
+    strcpy(a, "foo");
+    strcpy(b, "bar");
+    strcpy(c, "baz");
+    strcpy(d, "tuna");
+
+    M4STACK_PUSH(my_stack, a, STRING_STACK);
+    ASSERT_NUMEQ(my_stack->length, 1);
+    ASSERT_NUMEQ(my_stack->capacity, M4STACK_INITIAL_LENGTH);
+    ASSERT_STREQ(my_stack->contents[0], "foo");
+
+    M4STACK_PUSH(my_stack, b, STRING_STACK);
+    ASSERT_NUMEQ(my_stack->length, 2);
+    ASSERT_NUMEQ(my_stack->capacity, M4STACK_INITIAL_LENGTH);
+    ASSERT_STREQ(my_stack->contents[0], "foo");
+    ASSERT_STREQ(my_stack->contents[1], "bar");
+
+    M4STACK_PUSH(my_stack, c, STRING_STACK);
+    ASSERT_NUMEQ(my_stack->length, 3);
+    ASSERT_NUMEQ(my_stack->capacity, M4STACK_INITIAL_LENGTH);
+    ASSERT_STREQ(my_stack->contents[0], "foo");
+    ASSERT_STREQ(my_stack->contents[1], "bar");
+    ASSERT_STREQ(my_stack->contents[2], "baz");
+
+    M4STACK_PUSH(my_stack, d, STRING_STACK);
+    ASSERT_NUMEQ(my_stack->length, 4);
+    ASSERT_NUMEQ(my_stack->capacity, M4STACK_INITIAL_LENGTH * 2);
+    ASSERT_STREQ(my_stack->contents[0], "foo");
+    ASSERT_STREQ(my_stack->contents[1], "bar");
+    ASSERT_STREQ(my_stack->contents[2], "baz");
+    ASSERT_STREQ(my_stack->contents[3], "tuna");
+
+    M4STACK_FREE(my_stack, STRING_STACK);
+}
+
+int main() {
+    test_push(); 
+
+    return 0;
+}

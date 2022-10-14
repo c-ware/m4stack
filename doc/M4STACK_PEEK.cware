@@ -1,0 +1,22 @@
+.TH "M4STACK_PEEK" "cware" "Oct 14, 2022" "" "C-Ware Manuals"
+.SH NAME
+M4STACK_PEEK - get the value at the front of the stack
+.SH SYNOPSIS
+include(m4stack/m4stack.m4)
+.br
+
+\fBdefine(M4STACK_PEEK);\fR
+.br
+.SH DESCRIPTION
+This macro will retrieve the value vat the front of the stack, writing
+it into a variable.
+
+
+\fI$1\fR will be pointer to the stack to release
+.br
+\fI$2\fR will be the variable to put the value into
+.br
+.SH EXAMPLES
+For examples, please see the examples section in \fBm4stack\fR(cware)
+.SH SEE ALSO
+m4stack(cware)
