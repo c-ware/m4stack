@@ -1,2 +1,2 @@
-# m4queue
-An implementation of a queue with m4. 
+# m4stack
+An implementation of a stack with m4. 

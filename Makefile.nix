@@ -46,7 +46,7 @@ CC=cc
 CFLAGS=
 PREFIX=/usr/local
 TESTS=tests/length tests/free tests/addremov tests/pop tests/is_empty tests/peek tests/init tests/push 
-DOCS=doc/m4stack.cware doc/M4STACK_PUSH.cware doc/M4STACK_INIT.cware doc/m4stack-intro.cware doc/M4STACK_LENGTH.cware doc/M4STACK_POP.cware doc/M4STACK_IS_EMPTY.cware doc/M4STACK_PEEK.cware doc/M4STACK_DECLARE.cware doc/M4STACK_FREE.cware 
+DOCS=doc/m4stack.cware doc/M4STACK_PUSH.cware doc/M4STACK_INIT.cware doc/m4stack-intro.cware doc/M4STACK_LENGTH.cware doc/M4STACK_POP.cware doc/M4STACK_IS_EMPTY.cware doc/M4STACK_PEEK.cware doc/M4STACK_DECLARE.cware doc/M4STACK_FREE.cware doc/m4stack-example-tree.cware 
 
 all: $(TESTS)
 

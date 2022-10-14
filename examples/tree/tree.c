@@ -64,7 +64,7 @@
  * @
  * @    M4STACK_VERIFY(directories);
  * @    LIBERROR_MALLOC_FAILURE(path_buffer, "path_buffer");
- * @    M4STACK_ENSTACK(directories, copy_string("."), PATH);
+ * @    M4STACK_PUSH(directories, copy_string("."), PATH);
  * @
  * @    // Exhaust directories until there are no more
  * @    while(M4STACK_IS_EMPTY(directories) == 0) {
@@ -72,61 +72,52 @@
  * @        char *next_directory = CWUTILS_NULL;
  * @        struct dirent *entry = CWUTILS_NULL;
  * @
- * @        // Destack the next directory, load it, and scan its contents.
- * @        // This will separate files, which will be printed to the
- * @        // stdout, and directories, which will be enstackd to continue
- * @        // the cycle.
- * @        M4STACK_DESTACK(directories, next_directory, PATH);
+ * @        // Pop the next directory, load it, and scan its contents.
+ * @        // This will separate files, which will be printed to the stdout,
+ * @        // and directories, which will be pushed to continue the cycle.
+ * @        M4STACK_POP(directories, next_directory, PATH);
  * @        LIBERROR_IS_NULL(next_directory, "next_directory");
- * @        
- * @        // Load the file path into the reused memory buffer, then read
- * @        // it through dirent. This buffer will be reused when making
- * @        // the full paths to new directories to enstack. But, if the
- * @        // length of the directory name is too big, resize the buffer.
+ * @  
+ * @        // Load the file path into the reused memory buffer, then read it
+ * @        // through dirent. This buffer will be reused when making the full
+ * @        // paths to new directories to push. But, if the length of the
+ * @        // directory name is too big, resize the buffer.
  * @        if(strlen(next_directory) > (path_buffer_capacity - 1)) {
- * @            path_buffer = realloc(path_buffer,
- * @                          sizeof(char) * (strlen(next_directory) + 1));
+ * @            path_buffer = realloc(path_buffer, sizeof(char) * (strlen(next_directory) + 1));
  * @            path_buffer_capacity = strlen(next_directory) + 1;
+ * @
  * @
  * @            LIBERROR_MALLOC_FAILURE(path_buffer, "path_buffer");
  * @        }
  * @
- * @        strncpy(path_buffer, next_directory,
- * @                strlen(next_directory) + 1);
+ * @        strncpy(path_buffer, next_directory, strlen(next_directory) + 1);
  * @
- * @        // Scan the directory, enstacking new directories, and
- * @        // displaying files.
+ * @        // Scan the directory, pushing new directories, and displaying
+ * @        // files.
  * @        directory_ptr = opendir(next_directory);
  * @
  * @        LIBERROR_IS_NULL(directory_ptr, "directory_ptr");
  * @
  * @        // For each directory entry, build the full path to it.
  * @        while((entry = readdir(directory_ptr)) != NULL) {
- * @            if(strcmp(entry->d_name, ".") == 0 ||
- * @               strcmp(entry->d_name, "..") == 0)
+ * @            if(strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
  * @                continue;
  * @
- * @            if((strlen(entry->d_name) + strlen(next_directory) + 1) >
- * @                (path_buffer_capacity - 1)) {
- * @                path_buffer = realloc(path_buffer, sizeof(char) *
- * @                                      (strlen(entry->d_name) +
- * @                                       strlen(next_directory) + 2));
- * @                path_buffer_capacity = strlen(entry->d_name) +
- * @                                       strlen(next_directory) + 1 + 1;
+ * @            if((strlen(entry->d_name) + strlen(next_directory) + 1) > (path_buffer_capacity - 1)) {
+ * @                path_buffer = realloc(path_buffer, sizeof(char) * (strlen(entry->d_name) + strlen(next_directory) + 1 + 1));
+ * @                path_buffer_capacity = strlen(entry->d_name) + strlen(next_directory) + 1 + 1;
  * @
  * @                LIBERROR_MALLOC_FAILURE(path_buffer, "path_buffer");
  * @            }
  * @
- * @            sprintf(path_buffer, "%s/%s", next_directory,
- * @                                          entry->d_name);
+ * @            sprintf(path_buffer, "%s/%s", next_directory, entry->d_name);
  * @
  * @            // Enstack directories
  * @            if(is_direc(path_buffer) == 1) {
- * @                M4STACK_ENSTACK(directories, copy_string(path_buffer),
- * @                                PATH);
+ * @                M4STACK_PUSH(directories, copy_string(path_buffer), PATH);
  * @            }
  * @
- * @            printf("%s\\\\n", path_buffer);
+ * @            printf("%s\n", path_buffer);
  * @        }
  * @
  * @        free(next_directory);
@@ -136,7 +127,7 @@
  * @    M4STACK_FREE(directories, PATH);
  * @    free(path_buffer);
  * @
- * @    return 0;\N
+ * @    return 0;
  * @}
  * @examples
  *
@@ -312,7 +303,7 @@ do {
 
         /* Pop the next directory, load it, and scan its contents.
          * This will separate files, which will be printed to the stdout,
-         * and directories, which will be enqueued to continue the cycle. */
+         * and directories, which will be pushed to continue the cycle. */
         
     
     LIBERROR_IS_NULL((directories), "(directories)");
@@ -336,7 +327,7 @@ do {
   
         /* Load the file path into the reused memory buffer, then read it
          * through dirent. This buffer will be reused when making the full
-         * paths to new directories to enstack. But, if the length of the
+         * paths to new directories to push. But, if the length of the
          * directory name is too big, resize the buffer. */
         if(strlen(next_directory) > (path_buffer_capacity - 1)) {
             path_buffer = realloc(path_buffer, sizeof(char) * (strlen(next_directory) + 1));
@@ -348,7 +339,7 @@ do {
 
         strncpy(path_buffer, next_directory, strlen(next_directory) + 1);
 
-        /* Scan the directory, enstacking new directories, and displaying
+        /* Scan the directory, pushing new directories, and displaying
          * files. */
         directory_ptr = opendir(next_directory);
 

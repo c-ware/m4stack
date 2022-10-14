@@ -74,13 +74,13 @@
  * @
  * @        // Pop the next directory, load it, and scan its contents.
  * @        // This will separate files, which will be printed to the stdout,
- * @        // and directories, which will be enqueued to continue the cycle.
+ * @        // and directories, which will be pushed to continue the cycle.
  * @        M4STACK_POP(directories, next_directory, PATH);
  * @        LIBERROR_IS_NULL(next_directory, "next_directory");
  * @  
  * @        // Load the file path into the reused memory buffer, then read it
  * @        // through dirent. This buffer will be reused when making the full
- * @        // paths to new directories to enstack. But, if the length of the
+ * @        // paths to new directories to push. But, if the length of the
  * @        // directory name is too big, resize the buffer.
  * @        if(strlen(next_directory) > (path_buffer_capacity - 1)) {
  * @            path_buffer = realloc(path_buffer, sizeof(char) * (strlen(next_directory) + 1));
@@ -92,7 +92,7 @@
  * @
  * @        strncpy(path_buffer, next_directory, strlen(next_directory) + 1);
  * @
- * @        // Scan the directory, enstacking new directories, and displaying
+ * @        // Scan the directory, pushing new directories, and displaying
  * @        // files.
  * @        directory_ptr = opendir(next_directory);
  * @
@@ -203,13 +203,13 @@ int main() {
 
         /* Pop the next directory, load it, and scan its contents.
          * This will separate files, which will be printed to the stdout,
-         * and directories, which will be enqueued to continue the cycle. */
+         * and directories, which will be pushed to continue the cycle. */
         M4STACK_POP(directories, next_directory, PATH);
         LIBERROR_IS_NULL(next_directory, "next_directory");
   
         /* Load the file path into the reused memory buffer, then read it
          * through dirent. This buffer will be reused when making the full
-         * paths to new directories to enstack. But, if the length of the
+         * paths to new directories to push. But, if the length of the
          * directory name is too big, resize the buffer. */
         if(strlen(next_directory) > (path_buffer_capacity - 1)) {
             path_buffer = realloc(path_buffer, sizeof(char) * (strlen(next_directory) + 1));
@@ -221,7 +221,7 @@ int main() {
 
         strncpy(path_buffer, next_directory, strlen(next_directory) + 1);
 
-        /* Scan the directory, enstacking new directories, and displaying
+        /* Scan the directory, pushing new directories, and displaying
          * files. */
         directory_ptr = opendir(next_directory);
 
