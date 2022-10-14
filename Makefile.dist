@@ -44,9 +44,9 @@ M4=m4
 CC=cc
 PREFIX=/usr/local
 CFLAGS=-Wall -Wextra -Wpedantic -Wno-unused-but-set-variable -g
-SRCS=tests/length.c tests/free.c tests/addremov.c tests/pop.c tests/is_empty.c tests/peek.c tests/init.c tests/push.c  
+SRCS=tests/length.c tests/free.c tests/addremov.c tests/pop.c tests/is_empty.c tests/peek.c tests/init.c tests/push.c  examples/tree/tree.c 
 TESTS=tests/length tests/free tests/addremov tests/pop tests/is_empty tests/peek tests/init tests/push 
-EXAMPLES=
+EXAMPLES=examples/tree/tree 
 DOCS=doc/m4stack.cware doc/M4STACK_PUSH.cware doc/M4STACK_INIT.cware doc/m4stack-intro.cware doc/M4STACK_LENGTH.cware doc/M4STACK_POP.cware doc/M4STACK_IS_EMPTY.cware doc/M4STACK_PEEK.cware doc/M4STACK_DECLARE.cware doc/M4STACK_FREE.cware 
 
 all: $(SRCS) $(TESTS) $(EXAMPLES)
@@ -69,21 +69,21 @@ dist_clean:
 .SUFFIXES:
 
 tests/length.c: tests/length.m4c 
-	$(M4) tests/length.m4c > tests/length.c
+	$(M4) -Iexamples/tree tests/length.m4c > tests/length.c
 tests/free.c: tests/free.m4c 
-	$(M4) tests/free.m4c > tests/free.c
+	$(M4) -Iexamples/tree tests/free.m4c > tests/free.c
 tests/addremov.c: tests/addremov.m4c 
-	$(M4) tests/addremov.m4c > tests/addremov.c
+	$(M4) -Iexamples/tree tests/addremov.m4c > tests/addremov.c
 tests/pop.c: tests/pop.m4c 
-	$(M4) tests/pop.m4c > tests/pop.c
+	$(M4) -Iexamples/tree tests/pop.m4c > tests/pop.c
 tests/is_empty.c: tests/is_empty.m4c 
-	$(M4) tests/is_empty.m4c > tests/is_empty.c
+	$(M4) -Iexamples/tree tests/is_empty.m4c > tests/is_empty.c
 tests/peek.c: tests/peek.m4c 
-	$(M4) tests/peek.m4c > tests/peek.c
+	$(M4) -Iexamples/tree tests/peek.m4c > tests/peek.c
 tests/init.c: tests/init.m4c 
-	$(M4) tests/init.m4c > tests/init.c
+	$(M4) -Iexamples/tree tests/init.m4c > tests/init.c
 tests/push.c: tests/push.m4c 
-	$(M4) tests/push.m4c > tests/push.c
+	$(M4) -Iexamples/tree tests/push.m4c > tests/push.c
 
 tests/length: tests/length.c 
 	$(CC) tests/length.c $(CFLAGS) -o tests/length
@@ -103,7 +103,11 @@ tests/push: tests/push.c
 	$(CC) tests/push.c $(CFLAGS) -o tests/push
 
 
+examples/tree/tree.c: examples/tree/tree.m4c 
+	$(M4) -Iexamples/tree examples/tree/tree.m4c > examples/tree/tree.c
 
+examples/tree/tree: examples/tree/tree.c 
+	$(CC) examples/tree/tree.c $(CFLAGS) -o examples/tree/tree
 
 
 

@@ -32,5 +32,5 @@ process_makefile wat    1   > Makefile.wat
 
 # Load documentation
 cat src/m4stack.m4 | docgen-extractor-m4 | docgen-compiler-m4 | docgen-backend-manpage --section 'cware' --title 'C-Ware Manuals' --date "`date +'%b %d, %Y'`"
-#cat examples/tree/tree.c | docgen-extractor-m4 | docgen-compiler-m4 | docgen-backend-manpage --section 'cware' --title 'C-Ware Manuals' --date "`date +'%b %d, %Y'`"
+cat examples/tree/tree.c | docgen-extractor-m4 | docgen-compiler-m4 | docgen-backend-manpage --section 'cware' --title 'C-Ware Manuals' --date "`date +'%b %d, %Y'`"
 cat pages/m4stack-intro.doc | docgen-extractor-c | docgen-compiler-c | docgen-backend-manpage --section 'cware' --title 'C-Ware Manuals' --date "`date +'%b %d, %Y'`"

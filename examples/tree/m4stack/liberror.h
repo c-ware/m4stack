@@ -81,6 +81,8 @@
 #ifndef CWARE_LIBERROR_H
 #define CWARE_LIBERROR_H
 
+#if defined(LIBERROR_ENABLED)
+
 /* The file stream to write to */
 #if !defined(LIBERROR_STREAM)
 #   define LIBERROR_STREAM  stderr
@@ -90,8 +92,6 @@
 #if !defined(LIBERROR_ENABLED)
 #   define LIBERROR_ENABLED  1
 #endif
-
-#if defined(LIBERROR_ENABLED)
 
 /*
  * @docgen_start
